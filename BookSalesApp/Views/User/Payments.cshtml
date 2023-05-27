@@ -1,0 +1,30 @@
+﻿@model IQueryable<BookSalesApp.DTOs.PaymentResponseDTO>
+@{
+    ViewData["title"] = "Payments";
+    Layout = "../Shared/_LayoutUser.cshtml";
+    ViewData["payments"] = "active";
+}
+@if (TempData["success"] != null)
+{
+    <p class="text-success m-lg-3" id="message">@TempData["success"]</p>
+}
+@{
+    @if (Model.Count() > 0)
+    {
+        @foreach (var item in Model)
+        {
+            <div class="card m-3">
+                <div class="content m-2">
+               
+                    <h3 class="ml-1">@DateOnly.FromDateTime(item.Paymentdate)</h3>
+                    <h3 class="ml-1">@item.Paymentid</h3>
+                    <h3 class="ml-1">@Math.Round(item.Totalamount, 2)$</h3>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <h3 class="m-lg-3">Nothing found!</h3>
+    }
+}

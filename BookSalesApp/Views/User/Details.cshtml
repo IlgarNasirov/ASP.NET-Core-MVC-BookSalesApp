@@ -1,0 +1,22 @@
+﻿@model BookSalesApp.DTOs.IndexResponseDTO
+@{
+    ViewData["title"] = "Details";
+    Layout = "../Shared/_LayoutUser.cshtml";
+}
+<div class="container mt-3">
+    @{
+        string url = Model.Imageurl;
+        if (url == null)
+            url = "default.png";
+    }
+    <img src="~/images/@url" class="card-img-top" alt="@Model.Name" style="height: 400px; object-fit: contain;">
+    <h3>Name: @Model.Name</h3>
+    <h3>Author: @Model.Author</h3>
+    <h3>Genre: @Model.Genre</h3>
+    <h2>@Math.Round(Model.Price,2)$</h2>
+    <h4>@Model.Description</h4>
+    @if (ViewData["allow"] != null)
+    {
+        <a class="btn btn-success mb-2" asp-controller="User" asp-action="AddToCart" asp-route-id="@Model.Id"><i class="fas fa-shopping-cart"></i> Add to cart</a>
+    }
+</div>

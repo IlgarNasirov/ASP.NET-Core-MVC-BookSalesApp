@@ -1,0 +1,42 @@
+﻿@model IEnumerable<BookSalesApp.DTOs.IndexResponseDTO>
+@{
+    ViewData["title"] = "Index";
+    Layout = "../Shared/_LayoutUser.cshtml";
+    ViewData["books"] = "active";
+}
+@{
+    @if (Model.Count() > 0)
+    {
+        <div class="container mb-3">
+        <div class="row">
+        @foreach (var item in Model)
+        {           
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-3">
+                    <a style="cursor: pointer; text-decoration: none;" asp-controller="User" asp-action="Details" asp-route-id="@item.Id">
+                    <div class="card">
+                        @{
+                            string url = item.Imageurl;
+                            if (url == null)
+                                url = "default.png";
+                        }
+                        <img src="~/images/@url" class="card-img-top" alt="@item.Name" style="height: 250px;">
+                        <div class="card-body">
+                            <h3>@item.Author-@item.Name</h3>
+                            <h2>@Math.Round(item.Price, 2)$</h2>
+                        </div>
+                            @if (ViewData["allow"] != null)
+                            {
+                                    <a class="btn btn-success m-2" asp-controller="User" asp-action="AddToCart" asp-route-id="@item.Id"><i class="fas fa-shopping-cart"></i> Add to cart</a>
+                            }
+                        </div>
+                        </a>
+                </div>
+        }
+        </div>
+        </div>
+    }
+    else
+    {
+        <h3 class="m-lg-3">Nothing found!</h3>
+    }
+}

@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/fontawesome/all.min.css" />
+    <link rel="stylesheet" href="~/custom/css/styles.css" />
+    <link rel="icon" href="~/icon/icon.png" />
+    <title>@ViewData["title"]</title>
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+        <div class="bg-white" id="sidebar-wrapper">
+            <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold text-uppercase border-bottom">
+                <i class="fas fa-user-secret me-2"></i>Admin page
+            </div>
+            <div class="list-group list-group-flush my-3">
+                <a asp-controller="Admin" asp-action="Home" class="list-group-item list-group-item-action bg-transparent second-text fw-bold @ViewData["dashboard"]">
+                    <i class="fas fa-home me-2"></i>Dashboard
+                </a>
+                <a asp-controller="Admin" asp-action="AllBooks" class="list-group-item list-group-item-action bg-transparent second-text fw-bold @ViewData["books"]">
+                    <i class="fas fa-book me-2"></i>Books
+                </a>
+                <a asp-controller="Admin" asp-action="AddBook" class="list-group-item list-group-item-action bg-transparent second-text fw-bold @ViewData["addBook"]">
+                    <i class="fas fa-plus me-2"></i>Add book
+                </a>
+                <a asp-controller="Admin" asp-action="AllGenres" class="list-group-item list-group-item-action bg-transparent second-text fw-bold @ViewData["genres"]">
+                    <i class="fas fa-paperclip me-2"></i>Genres
+                </a>
+                <a asp-controller="Admin" asp-action="AddGenre" class="list-group-item list-group-item-action bg-transparent second-text fw-bold @ViewData["addGenre"]">
+                    <i class="fas fa-plus me-2"></i>Add genre
+                </a>
+                <a asp-controller="Admin" asp-action="Logout" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold">
+                    <i class="fas fa-power-off me-2"></i>Logout
+                </a>
+            </div>
+        </div>
+        <div id="page-content-wrapper">
+            <nav class="navbar navbar-expand-lg navbar-light bg-transparent py-4 px-4">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle"></i>
+                    <h2 class="fs-2 m-0">@ViewData["title"]</h2>
+                </div>
+            </nav>
+            @RenderBody()
+        </div>
+    </div>
+    <script src="~/jquery/jquery.min.js"></script>
+    <script src="~/custom/js/script.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

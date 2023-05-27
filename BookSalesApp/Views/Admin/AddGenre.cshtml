@@ -1,0 +1,28 @@
+﻿@model BookSalesApp.DTOs.AddGenreDTO
+@{
+    ViewData["addGenre"] = "active";
+    Layout = "../Shared/_LayoutAdmin.cshtml";
+}
+<div class="card m-3">
+    <div class="content m-3">
+            <form method="post">
+                <div class="form-group mt-3">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" type="text" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                @if (ViewData["error"] != null)
+                {
+                    <span class="text-danger">@ViewData["error"]</span>
+                }
+                <div class="reset-button">
+                    <button class="btn btn-success mt-2">@ViewData["title"]</button>
+                </div>
+            </form>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,67 @@
+﻿@using System.Security.Claims;
+@{
+    ViewData["username"] = new HttpContextAccessor().HttpContext.User.FindFirstValue(ClaimTypes.Name);
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["title"]</title>
+    <link href="~/bootswatch/bootswatch.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/fontawesome/all.min.css" />
+    <link rel="icon" href="~/icon/icon.png" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" asp-controller="User" asp-action="Index">Book sales</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link @ViewData["books"]" asp-controller="User" asp-action="Index">Books</a>
+                    </li>
+                    @if (ViewData["username"] != null)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link @ViewData["cart"]" asp-controller="User" asp-action="Cart">Cart</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @ViewData["payments"]" asp-controller="User" asp-action="Payments">Payments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @ViewData["yourBooks"]" asp-controller="User" asp-action="YourBooks">Your books</a>
+                        </li>
+                    }
+                </ul>
+                <form method="post" class="d-flex" asp-controller="User" asp-action="SearchBook">
+                    <input class="form-control me-sm-2" type="search" placeholder="Author or book name" name="name">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                    @if (ViewData["username"] != null)
+                    {
+                        <h2 style="color: #FAE8D9; margin-left:5px;">@ViewData["username"]</h2>
+                        <a style="margin-left: 5px;" asp-controller="User" asp-action="Logout"><h2><i class="fas fa-sign-out-alt fa-lg" style="color: #fff;"></i></h2></a>
+                    }
+                    else
+                    {
+                        <h2><a style="color: #FAE8D9; margin-left:5px; text-decoration: none;" asp-controller="User" asp-action="Login">Login</a></h2>
+                    }
+                </form>
+            </div>
+        </div>
+    </nav>
+        @RenderBody()
+    <script>
+        setTimeout(() => {
+            document.getElementById("message").style.display = "none";
+        }, 5000);
+    </script>
+    <script src="~/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="~/jquery/jquery.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

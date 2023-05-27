@@ -1,0 +1,31 @@
+﻿@model BookSalesApp.DTOs.RegisterDTO
+@{
+    ViewData["title"] = "Register";
+    Layout = "../Shared/_Layout.cshtml";
+}
+<h1>Register</h1>
+<form method="post">
+    <div class="txt_field">
+        <input asp-for="Username" class="form-control" type="text" placeholder="Username" />
+    </div>
+    <span asp-validation-for="Username" class="text-danger"></span>
+    <div class="txt_field">
+        <input asp-for="Password" class="form-control" type="password" placeholder="Password" />
+    </div>
+    <span asp-validation-for="Password" class="text-danger"></span>
+    <div class="txt_field">
+        <input asp-for="RePassword" class="form-control" type="password" placeholder="Repassword" />
+    </div>
+    <span asp-validation-for="RePassword" class="text-danger"></span>
+    @if (ViewData["error"] != null)
+    {
+        <p class="text-danger">@ViewData["error"]</p>
+    }
+    <input type="submit" value="Register">
+    <a class="btn btn-success mb-4" id="btn" asp-controller="User" asp-action="Login">Login</a>
+</form>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
